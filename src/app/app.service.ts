@@ -15,8 +15,9 @@ export class AppService {
     return this.http.get(environment.domain + environment.apis.consultar)
   }
 
-  almacenar(resultado: string) {
+  almacenar(resultado: String) {
     const body = { resultado: resultado }
+    console.log(body);
     return this.http.post(environment.domain + environment.apis.almacenar, body)
   }
 
