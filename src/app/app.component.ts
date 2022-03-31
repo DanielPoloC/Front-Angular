@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AppService } from './app.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-root',
@@ -14,36 +18,49 @@ export class AppComponent {
   numeroB: String = "0";
   resultado: String = "0"
 
-  constructor(
-    public appService:AppService,
-    private snackBar: MatSnackBar
-  ){}
+  operaciones: any;
 
+  displayedColumns: string[] = [
+    'resultado',
+    'registro',
+  ];
+
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+  constructor(
+    public appService: AppService,
+    private snackBar: MatSnackBar,
+  ) { }
+
+  async ngOnInit() {
+    await this.consultar()
+  }
   async multiplicar() {
     this.resultado = this.multiply(this.numeroA, this.numeroB)
     this.appService.almacenar(this.resultado).subscribe((result: any) => {
       this.snackBar.open(result.result, 'cerrar');
+      this.consultar()
       setTimeout(() => {
         this.snackBar.dismiss();
       }, 3000);
     })
   }
 
-  async eliminar(){
+  async eliminar() {
     this.appService.eliminar().subscribe((result: any) => {
       this.snackBar.open(result.result, 'cerrar');
+      this.consultar()
       setTimeout(() => {
         this.snackBar.dismiss();
       }, 3000);
     })
   }
 
-  async consultar(){
+  async consultar() {
     this.appService.consultar().subscribe((result: any) => {
-      this.snackBar.open(result.result, 'cerrar');
-      setTimeout(() => {
-        this.snackBar.dismiss();
-      }, 3000);
+      console.log(result);
+      this.operaciones = new MatTableDataSource<any>(result.result);
+      this.operaciones.paginator = this.paginator;
     })
   }
 

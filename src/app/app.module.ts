@@ -11,15 +11,12 @@ import {MatTableModule} from '@angular/material/table';
 import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
-import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatGridListModule} from '@angular/material/grid-list';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -29,21 +26,17 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
     MatTableModule,
     MatIconModule,
-    MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     FormsModule,
-    MatGridListModule,
-    NgbModule,
-    MatDividerModule,
     MatCardModule,
     MatButtonModule,
     HttpClientModule,
     MatSnackBarModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
